@@ -4,8 +4,8 @@ function systemsRegister(input) {
   input.forEach(element => {
     list.push(element.split(` | `));
   });
-  
   for (let [systemName, componentName, subcomponentName] of list) {
+    
     if (!system.has(systemName)) {
       system.set(systemName, new Map());
     } 
@@ -15,9 +15,10 @@ function systemsRegister(input) {
       subComp = system.get(systemName).get(componentName);
     }
     subComp.push(subcomponentName);
+
   }
   
-  let sorted = [...system.entries()].sort((a, b) => (b[1].size - a[1].size) !== 0 || a[0].localeCompare(b[0]));
+  let sorted = [...system.entries()].sort((a, b) => b[1].size - a[1].size || a[0].localeCompare(b[0]));
   for (let [mainName, element] of sorted) {
     console.log(mainName);
     let sortedElement = [...element.entries()].sort((a, b) => b[1].length - a[1].length);
